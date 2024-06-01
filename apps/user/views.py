@@ -1,13 +1,23 @@
-from django.shortcuts import render
-
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from .forms import LoginForm, RegistroForm
 
 def registro(request):
-    return render(request, 'users/registro.html')
-# views.py
+    if request.method == 'GET':
+        context = {'form': RegistroForm()}
+        return render(request, 'users/registro.html', context)
+    
+    if request.method == 'POST':
+        form = RegistroForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+        
+        context = {'form': form}
+        return render(request, 'users/registro.html', context)
 
-from django.shortcuts import  redirect
-from django.contrib.auth import authenticate, login
-from .forms import LoginForm
+
+
 
 def login_view(request):
     if request.method == 'POST':
