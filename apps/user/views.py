@@ -3,18 +3,18 @@ from django.contrib.auth import authenticate, login
 from .forms import LoginForm, RegistroForm
 
 def registro(request):
-    if request.method == 'GET':
-        context = {'form': RegistroForm()}
-        return render(request, 'users/registro.html', context)
-    
     if request.method == 'POST':
-        form = RegistroForm(data=request.POST)
+        form = RegistroForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('login')
-        
-        context = {'form': form}
-        return render(request, 'users/registro.html', context)
+            user = form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return redirect('login')  # Redirige a la página principal u otra página deseada
+    else:
+        form = RegistroForm()
+    return render(request, 'users/registro.html', {'form': form})
 
 
 
