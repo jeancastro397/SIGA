@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     # APPS
     'apps.user',
+    'apps.notes',
 ]
 
 MIDDLEWARE = [
