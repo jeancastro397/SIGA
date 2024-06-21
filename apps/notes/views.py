@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import NoteForm
 
 
-def nota(request):
+def crearNota(request):
     contexto = {
         "form" : NoteForm()
     }
@@ -15,6 +15,6 @@ def nota(request):
         else:
             contexto['form'] = form
     
-    return render(request, 'nota.html', contexto)
+    return render(request, 'notes/crear-nota.html', contexto)
 
 
