@@ -35,3 +35,6 @@ def login_view(request):
         form = LoginForm()
     return render(request, 'users/inicio_sesion.html', {'form': form})
 
+
+def index_view(request):
+    return render(request, 'index.html')
