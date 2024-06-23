@@ -1,0 +1,29 @@
+<header>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'home' %}">SIGA</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+
+          <!-- Dropdown for Notas -->
+          <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarNotas" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Notas
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarNotas">
+              <li><a class="dropdown-item" href="{% url 'crear-nota' %}">Nueva Nota</a></li>
+              <li><a class="dropdown-item" href="">Listar Notas</a></li>
+            </ul>
+          </div>
+
+          <a class="nav-link" href="#">Recordatorios</a>
+          <a class="nav-link disabled" aria-disabled="true">Nosotros</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>

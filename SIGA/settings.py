@@ -41,6 +41,8 @@ INSTALLED_APPS = [
 
     # APPS
     'apps.user',
+    'apps.notes',
+    'apps.reminders',
 ]
 
 MIDDLEWARE = [

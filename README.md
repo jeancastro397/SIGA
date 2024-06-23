@@ -11,6 +11,9 @@ Este repositorio sirve como bitácora de avance para el proyecto SIGA. En esta b
 - [x] Estilo CSS login.
 - [x] Estilo CSS registro.
 - [x] Se agrega bitacora de avance al proyecto.
+- [x] Configurtación e implementacion de estilos utilizando bootstrap
+- [x] Vistas y formularios de gestion de usuarios
+- [ ] Creacion de modelo y vistas de notas
 
 
 

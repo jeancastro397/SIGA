@@ -1,30 +1,48 @@
-from django.shortcuts import render
-
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from .forms import LoginForm, RegistroForm
 
 def registro(request):
-    return render(request, 'users/registro.html')
-# views.py
-
-from django.shortcuts import  redirect
-from django.contrib.auth import authenticate, login
-from .forms import LoginForm
-
-def login_view(request):
     if request.method == 'POST':
-        form = LoginForm(request.POST)
+        form = RegistroForm(request.POST)
         if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect('home')  # Redirige a la página de inicio u otra página
-            else:
-                form.add_error(None, 'Nombre de usuario o contraseña incorrectos')
+            user = form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return redirect('login')  # Redirige a la página principal u otra página deseada
     else:
-        form = LoginForm()
-    return render(request, 'users/inicio_sesion.html', {'form': form})
+        form = RegistroForm()
+    return render(request, 'users/registro.html', {'form': form})
 
 
-def index_view(request):
-    return render(request, 'index.html')
+
+## Formulario Login
+def login(request):
+    # Entrega un formulario limpio al entrar a la página
+    if request.method == 'GET':
+        context = {
+            "title": "Iniciar sesión",
+            "loginForm": LoginForm()
+        }
+        return render (request, "users/login.html", context)
+
+    # Valida el formulario, sino es válido, devuelve el formulario con los campos rellenados
+    if request.method == 'POST':
+        loginForm = LoginForm(data=request.POST)
+        if loginForm.is_valid():
+            username = loginForm.cleaned_data['username']
+            password = loginForm.cleaned_data['password']
+            valid_user = authenticate(request, username=username, password=password)
+            if valid_user is not None:
+                login(request, valid_user)
+                return redirect("home")  # Redirige a la página de inicio u otra página
+            else:
+                loginForm.add_error(None, 'Nombre de usuario o contraseña incorrectos')
+        context = {
+            "title": "Iniciar sesión",
+            "loginForm": loginForm
+        }
+        return render(request, "users/login.html", context)
+
