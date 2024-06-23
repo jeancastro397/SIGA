@@ -18,20 +18,31 @@ def registro(request):
 
 
 
+## Formulario Login
+def login(request):
+    # Entrega un formulario limpio al entrar a la página
+    if request.method == 'GET':
+        context = {
+            "title": "Iniciar sesión",
+            "loginForm": LoginForm()
+        }
+        return render (request, "users/login.html", context)
 
-def login_view(request):
+    # Valida el formulario, sino es válido, devuelve el formulario con los campos rellenados
     if request.method == 'POST':
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect('home')  # Redirige a la página de inicio u otra página
+        loginForm = LoginForm(data=request.POST)
+        if loginForm.is_valid():
+            username = loginForm.cleaned_data['username']
+            password = loginForm.cleaned_data['password']
+            valid_user = authenticate(request, username=username, password=password)
+            if valid_user is not None:
+                login(request, valid_user)
+                return redirect("home")  # Redirige a la página de inicio u otra página
             else:
-                form.add_error(None, 'Nombre de usuario o contraseña incorrectos')
-    else:
-        form = LoginForm()
-    return render(request, 'users/inicio_sesion.html', {'form': form})
+                loginForm.add_error(None, 'Nombre de usuario o contraseña incorrectos')
+        context = {
+            "title": "Iniciar sesión",
+            "loginForm": loginForm
+        }
+        return render(request, "users/login.html", context)
 
