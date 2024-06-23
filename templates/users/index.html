@@ -1,36 +1,16 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Recordatorios</title>
-    <link rel="stylesheet" href="{% static 'styles.css' %}">
-</head>
-<body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="{% url 'index' %}">Inicio</a></li>
-                {% if user.is_authenticated %}
-                    <li><a href="{% url 'reminders' %}">Mis Recordatorios</a></li>
-                    <li><a href="{% url 'create_reminder' %}">Crear Recordatorio</a></li>
-                    <li><a href="{% url 'logout' %}">Cerrar Sesión</a></li>
-                {% else %}
-                    <li><a href="{% url 'login' %}">Iniciar Sesión</a></li>
-                    <li><a href="{% url 'register' %}">Registrar</a></li>
-                {% endif %}
-            </ul>
-        </nav>
-    </header>
+{% extends 'base.html' %}
+{% load static %}
 
-    <main>
-        <h1>Bienvenido al Sistema de Recordatorios</h1>
-        <p>Con esta aplicación, puedes gestionar tus recordatorios de forma sencilla y rápida.</p>
-        {% if user.is_authenticated %}
-            <p>Ve a <a href="{% url 'reminders' %}">tus recordatorios</a> para ver y gestionar tus notas.</p>
-        {% else %}
-            <p><a href="{% url 'login' %}">Inicia sesión</a> o <a href="{% url 'register' %}">regístrate</a> para empezar.</p>
-        {% endif %}
-    </main>
-</body>
-</html>
+{% block css %}
+<style>
+</style>
+{% endblock css %}
+
+{% block content %}
+<main class="container principal-section">
+    <section class="row">
+        <h3> {{ title }} </h3>
+        <h4> {{ subtitle }} </h4>
+    </section>
+</main>
+{% endblock content %}

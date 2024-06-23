@@ -23,10 +23,10 @@ def login(request):
     # Entrega un formulario limpio al entrar a la página
     if request.method == 'GET':
         context = {
-            "title": "Bienvenido",
+            "title": "Iniciar sesión",
             "loginForm": LoginForm()
         }
-        return render (request, "users.login.html", context)
+        return render (request, "users/login.html", context)
 
     # Valida el formulario, sino es válido, devuelve el formulario con los campos rellenados
     if request.method == 'POST':
@@ -41,15 +41,8 @@ def login(request):
             else:
                 loginForm.add_error(None, 'Nombre de usuario o contraseña incorrectos')
         context = {
-            "title": "Bienvenido",
+            "title": "Iniciar sesión",
             "loginForm": loginForm
         }
-        return render(request, "users.login.html", context)
+        return render(request, "users/login.html", context)
 
-
-def index(request):
-    context = {
-        "title": "Bienvenido a su recordatorio de notas",
-        "subtitle": "Para usar la pa´gina, puede registrarse y usar todas las funciones"
-    }
-    return render(request, 'index.html', context)

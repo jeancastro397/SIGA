@@ -9,16 +9,23 @@ Crear Recordatorio
 {% endblock css %}
 
 {% block content %}
-<main class="container form-container">
+<main class="container">
     <section class="row">
         <div class="col-md-8 offset-md-2">
-            <h2>Crear Recordatorio</h2>
+            <h2>{{title}}</h2>
             <form action="" method="POST">
                 {% csrf_token %}
+                <div class="mb-1 offset-md-4 col-md-4">
+                    <label class="form-label m-2">{{reminderForm.date.label}}:</label>
+                    {{reminderForm.date}}
+                </div>
+                <div class="mb-3 offset-md-4 col-md-4">
+                    <label class="form-label m-2">{{reminderForm.time.label}}:</label>
+                    {{reminderForm.time}}
+                </div>
 
-                {{ recordatorio }}
+                <button type="submit" role="submit" class="btn btn-primary offset-md-4 col-md-4">Registrar</button>
             </form>
-
         </div>
     </section>
 </main>

@@ -1,17 +1,22 @@
 from django.shortcuts import render, redirect
 from .forms import ReminderForm
 
-
 def crear_recordatorio(request):
-    context = {
-        'recordatorio': ReminderForm()
-    }
+    if request.method == 'GET':
+        context = {
+            "title": "Crear Recordatorio",
+            "reminderForm": ReminderForm()
+        }
+        return render(request, "reminders/crear-recordatorio.html", context)
 
     if request.method == 'POST':
-        recordatorio = ReminderForm(data=request.POST)
-        if recordatorio.is_valid:
-            recordatorio.save()
-        else:
-            context['recordatorio'] = recordatorio
-    
-    return render (request, 'reminders/crear-recordatorio.html', context)
+        reminderForm = ReminderForm(data=request.POST)
+        if reminderForm.is_valid():
+            reminderForm.save()
+            return redirect("home")
+
+        context = {
+            "title": "Crear recordatorio",
+            "reminderForm": reminderForm
+        }
+        return render(request, "reminders/crear-recordatorio.html", context)
