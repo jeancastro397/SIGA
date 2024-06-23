@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
-from .forms import LoginForm, RegistroForm
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, update_session_auth_hash
+from django.contrib.auth.decorators import login_required
+from .forms import LoginForm, RegistroForm, PerfilForm, PasswordUpdateForm
 
 def registro(request):
     if request.method == 'POST':
@@ -46,3 +48,26 @@ def login(request):
         }
         return render(request, "users/login.html", context)
 
+
+
+# Formulario de editar perfil de usuario
+@login_required
+def perfil(request):
+    if request.method == 'POST:':
+        userForm = PerfilForm(request.POST, instance=request.user)
+        passwordForm = PasswordUpdateForm(user=request.user, data=request.POST)
+        if userForm.is_valid() and passwordForm.is_valid():
+            userForm.save()
+            user = passwordForm.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, "Tu perfil se ha actualizado correctamente.")
+            return redirect('perfil')
+    
+    else:
+        userForm = PerfilForm(instance=request.user)
+        passwordForm = PasswordUpdateForm(user=request.user)
+    
+    return render(request, 'users/perfil.html', {
+        'userForm': userForm,
+        'passwordForm': passwordForm
+    })
