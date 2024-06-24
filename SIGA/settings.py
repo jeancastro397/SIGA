@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'apps.user',
     'apps.notes',
     'apps.reminders',
+    'sweetify',
 ]
 
 MIDDLEWARE = [
@@ -132,3 +133,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_DIRS = [
     join(BASE_DIR, 'assets')
 ]
+
+## Instalación de sweetify2
+SWEETIFY_SWEETALERT_LIBRARY = 'sweetalert2'
