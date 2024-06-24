@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Actualizar perfil
+{% endblock title %}
+
+{% block content %}
+<main class="container">
+    <section class="row">
+        <div class="col-md-8 offset-md-2">
+            <h2>Actualizar Perfil</h2>
+            <form method="POST">
+                {% csrf_token %}
+                {{ userForm.as_p }}
+                {{ passwordForm.as_p }}
+                <button type="submit" class="btn btn-primary">Actualizar</button>
+            </form>
+        </div>
+    </section>
+</main>
+{% endblock content %}
