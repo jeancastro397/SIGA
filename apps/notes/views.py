@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from .models import Note
 from .forms import NoteForm
 
 
 # Crear las notas estando logeado
+@login_required
 def crearNota(request):
     if request.method == 'GET':
         context = {
@@ -15,7 +17,9 @@ def crearNota(request):
     if request.method == 'POST':
         form = NoteForm(data=request.POST)
         if form.is_valid():
-            form.save()
+            note = form.save(commit=False)
+            note.user = request.user
+            note.save()
             return redirect("listar-notas")
         
         context = {
@@ -27,6 +31,7 @@ def crearNota(request):
 
 
 # Listar las notas 
+@login_required
 def listarNota(request):
     if request.method == 'GET':
         context = {
