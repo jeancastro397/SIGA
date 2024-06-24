@@ -1,6 +1,13 @@
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib.auth.models import User
-from django.forms import ModelForm, Form, CharField, PasswordInput, EmailInput, TextInput
+from django.forms import (
+    ModelForm,
+    Form,
+    CharField,
+    PasswordInput,
+    EmailInput,
+    TextInput,
+)
 from django.core.exceptions import ValidationError
 
 
@@ -25,15 +32,6 @@ class RegistroForm(UserCreationForm):
             "password1",
             "password2",
         ]
-
-        widgets = {
-            "username": TextInput(attrs={"class": "form-control"}),
-            "first_name": TextInput(attrs={"class": "form-control"}),
-            "last_name": TextInput(attrs={"class": "form-control"}),
-            "email": EmailInput(attrs={"class": "form-control"}),
-            "password1": PasswordInput(attrs={"class": "form-control"}),
-            "password2": PasswordInput(attrs={"class": "form-control"}),
-        }
     
     def clean_email(self):
         email = self.cleaned_data.get('email')
@@ -62,18 +60,17 @@ class LoginForm(Form):
     )
 
 
-
 class PerfilForm(ModelForm):
     class Meta:
         model = User
-        fields = ['username', 'email']
+        fields = ["username", "email"]
         widgets = {
-            'username': TextInput(attrs={'class':'form-control'}),
-            'email': EmailInput(attrs={'class':'form-control'}),
+            "username": TextInput(attrs={"class": "form-control"}),
+            "email": EmailInput(attrs={"class": "form-control"}),
         }
 
     def clean_email(self):
-        email = self.cleaned_data.get('email')
+        email = self.cleaned_data.get("email")
         if User.objects.filter(email=email).exclude(pk=self.instance.pk).exists():
             raise ValidationError("Este email ya está en uso.")
         return email
@@ -81,11 +78,11 @@ class PerfilForm(ModelForm):
 
 class PasswordUpdateForm(PasswordChangeForm):
     old_password = CharField(
-        widget= PasswordInput(attrs={'class': 'form-control'}),
+        widget=PasswordInput(attrs={"class": "form-control"}),
     )
     new_password1 = CharField(
-        widget=PasswordInput(attrs={'class':'form-control'}),
+        widget=PasswordInput(attrs={"class": "form-control"}),
     )
     new_password2 = CharField(
-        widget=PasswordInput(attrs={'class':'form-control'}),
+        widget=PasswordInput(attrs={"class": "form-control"}),
     )
