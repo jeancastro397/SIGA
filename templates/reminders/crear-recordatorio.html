@@ -15,6 +15,10 @@ Crear Recordatorio
             <h2>{{title}}</h2>
             <form action="" method="POST">
                 {% csrf_token %}
+                <div class="mb-3 offset-md-4 col-md-4">
+                    <label class="form-label m-2">{{reminderForm.name.label}}:</label>
+                    {{reminderForm.name}}
+                </div>
                 <div class="mb-1 offset-md-4 col-md-4">
                     <label class="form-label m-2">{{reminderForm.date.label}}:</label>
                     {{reminderForm.date}}

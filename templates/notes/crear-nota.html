@@ -15,10 +15,20 @@ Crear Nota
             <h2>Crear Nota</h2>
             <form action="" method="POST">
                 {% csrf_token %}
-
-                {{ form }}
+                <div class="mb-1 offset-md-4 col-md-4">
+                    <label class="form-label m-2">{{form.title.label}}</label>
+                    {{form.title}}
+                </div>
+                <div class="mb-3 offset-md-4 col-md-4">
+                    <label class="form-label m-2">{{form.description.label}}:</label>
+                    {{form.description}}
+                </div>
+                <div class="mb-3 offset-md-4 col-md-4">
+                    <label class="form-label m-2">{{form.due_date.label}}:</label>
+                    {{form.due_date}}
+                </div>
+                <button type="submit" role="submit" class="btn btn-primary offset-md-4 col-md-4">Guardar</button>
             </form>
-
         </div>
     </section>
 </main>
