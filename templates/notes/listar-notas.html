@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Lista de notas
+{% endblock title %}
+
+{% block content %}
+<main class="container">
+    <section class="row">
+        <h2> {{title}} </h2>
+        {% for f in listNotes %}
+
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">{{f.title}}</h5>
+              <h6 class="card-subtitle mb-2 text-body-secondary"> {{f.due_date}} </h6>
+              <p class="card-text"> {{f.description}} </p>
+
+              <button>Crear recordatorio</button>
+            </div>
+          </div>
+        
+        {% endfor %}
+    </section>
+</main>
+{% endblock content %}
