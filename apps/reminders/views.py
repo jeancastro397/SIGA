@@ -1,27 +1,49 @@
+from django.shortcuts import render, get_object_or_404, redirect
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import ReminderForm
 from .models import Reminder
+from apps.notes.models import Note
+from sweetify import success, warning
 
 
-
-def crear_recordatorio(request):
+@login_required
+def crearRecordatorio(request):
     if request.method == 'GET':
         context = {
-            "title": "Crear Recordatorio",
-            "reminderForm": ReminderForm()
+            "title": "Nuevo Recordatorio",
+            "form": ReminderForm(),
+            "notes": Note.objects.filter(user=request.user)  # Filtrar notas del usuario logueado
         }
         return render(request, "reminders/crear-recordatorio.html", context)
 
     if request.method == 'POST':
-        reminderForm = ReminderForm(data=request.POST)
-        if reminderForm.is_valid():
-            reminderForm.save()
-            return redirect("home")
-
+        form = ReminderForm(data=request.POST)
+        if form.is_valid():
+            reminder = form.save(commit=False)
+            reminder.user = request.user
+            reminder.save()
+            success(
+                request,
+                "Recordatorio creado",
+                text="El recordatorio ha sido creado con éxito",
+                timer=4000,
+                button="Listo",
+            )
+            return redirect("listar-recordatorios")
+        
+        else:
+            warning(
+            request,
+            "Error al crear el recordatorio",
+            text="Revise los campos e inténtelo nuevamente.",
+            timer=3000,
+            button="OK",
+        )
         context = {
-            "title": "Crear recordatorio",
-            "reminderForm": reminderForm
+            "title": "Nuevo Recordatorio",
+            "form": form,
+            "notes": Note.objects.filter(user=request.user)  # Filtrar notas del usuario logueado
         }
         return render(request, "reminders/crear-recordatorio.html", context)
 
@@ -31,7 +53,7 @@ def crear_recordatorio(request):
 def listarRecordatorio(request):
     if request.method == 'GET':
         context = {
-            "title": "Lista de notas",
+            "title": "Lista de recordatorios",
             "listReminders": Reminder.objects.all()
         }
         return render(request, "reminders/listar-recordatorios.html", context)
