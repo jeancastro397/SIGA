@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, RegistroForm, PerfilForm, PasswordUpdateForm
+from sweetify import success, warning
 
 
 def registro_view(request):
@@ -11,9 +12,23 @@ def registro_view(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
+            success(
+                request,
+                "Registrado correctamente",
+                text="Ahora puede usar la página libremente",
+                timer=3000,
+                button="OK",
+            )
             return redirect(
                 "login"
             )  # Redirige a la página principal u otra página deseada
+        else:
+            warning(
+                request,
+                "Ups...",
+                text="Observe el formulario y valide sus datos",
+                button="OK",
+            )
     else:
         form = RegistroForm()
     return render(request, "users/registro.html", {"form": form})
@@ -35,9 +50,21 @@ def login_view(request):
             valid_user = authenticate(request, username=username, password=password)
             if valid_user is not None:
                 login(request, valid_user)
+                success(
+                    request,
+                    "Inicio de sesión exitoso!!",
+                    timer=3000,
+                    button="OK",
+                )
                 return redirect("home")  # Redirige a la página de inicio u otra página
             else:
                 loginForm.add_error(None, "Nombre de usuario o contraseña incorrectos")
+                warning(
+                    request,
+                    "Ingrese credenciales válidas",
+                    timer=3000,
+                    button="OK",
+                )
         context = {"title": "Iniciar sesión", "loginForm": loginForm}
         return render(request, "users/login.html", context)
 
@@ -54,13 +81,23 @@ def perfil(request):
             update_session_auth_hash(
                 request, password_form.user
             )  # Actualizar la sesión con la nueva contraseña
-            messages.success(
-                request, "Tu perfil y contraseña han sido actualizados exitosamente."
+            success(
+                request,
+                "Actualización exitosa!!",
+                text="Tu perfil y contraseña han sido actualizados exitosamente.",
+                timer=3000,
+                button="OK",
             )
             return redirect("perfil")
         elif user_form.is_valid():
             user_form.save()
-            messages.success(request, "Tu perfil ha sido actualizado exitosamente.")
+            success(
+                request,
+                "Actualización exitosa!!",
+                text="Tu perfil ha sido actualizado exitosamente.",
+                timer=3000,
+                button="OK",
+            )
             return redirect("perfil")
         elif password_form.is_valid():
             password_form.save()
@@ -68,7 +105,22 @@ def perfil(request):
                 request, password_form.user
             )  # Actualizar la sesión con la nueva contraseña
             messages.success(request, "Tu contraseña ha sido actualizada exitosamente.")
+            success(
+                request,
+                "Contraseña cambiada!!",
+                text="Tu contraseña ha sido actualizada exitosamente.",
+                timer=3000,
+                button="OK",
+            )
             return redirect("perfil")
+        else:
+            warning(
+                request,
+                "Perfil no actualizado",
+                text="Revice bien los campos e intenténtelo nuevamente.",
+                timer=5000,
+                button="OK",
+            )
     else:
         user_form = PerfilForm(instance=request.user)
         password_form = PasswordUpdateForm(user=request.user)
