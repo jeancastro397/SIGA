@@ -1,33 +1,35 @@
 from datetime import datetime
-from .models import Reminder
 from django.forms import (
     ModelForm,
+    TextInput,
     DateField,
     DateInput,
     TimeField,
     TimeInput,
     Select,
 )
-
+from .models import Reminder
 
 class ReminderForm(ModelForm):
     date = DateField(
         widget=DateInput(attrs={
             'class': 'form-control',
-            'type': 'date'
+            'type': 'date',
+            'placeholder': 'Seleccione una fecha'
         }),
     )
     time = TimeField(
         widget=TimeInput(attrs={
             'class': 'form-control',
-            'type': 'time'
+            'type': 'time',
+            'placeholder': 'Seleccione una hora'
         }),
     )
 
     class Meta:
         model = Reminder
         fields = [
-            'name',
+            'name',  # Este campo debe estar definido en el modelo y es el nombre del recordatorio
             'note',
             'date',
             'time',
@@ -35,6 +37,10 @@ class ReminderForm(ModelForm):
         widgets = {
             'note': Select(attrs={
                 'class': 'form-control'
+            }),
+            'name': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Ingrese el nombre del recordatorio'
             }),
         }
 
@@ -46,13 +52,3 @@ class ReminderForm(ModelForm):
         if commit:
             reminder.save()
         return reminder
-    
-    # En reminders/forms.py
-
-from django import forms
-from .models import Recordatorio
-
-class RecordatorioForm(forms.ModelForm):
-    class Meta:
-        model = Recordatorio
-        fields = ['name', 'date', 'time']

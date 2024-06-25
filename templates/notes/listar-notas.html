@@ -51,53 +51,7 @@ Lista de notas
                         </div>
                       </div>
                     </div>
-<<<<<<< HEAD
-                </div>
-            {% endfor %}
-        </div>
-        {% for f in listNotes %}
-      
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title">{{f.title}}</h5>
-              <h6 class="card-subtitle mb-2 text-body-secondary"> {{f.due_date}} </h6>
-              <p class="card-text"> {{f.description}} </p>
-
-              <button class="btn btn-primary">Crear recordatorio</button>
-              <!-- Botón que abre el modal -->
-              <button class="btn btn-danger" data-toggle="modal" data-target="#confirmDeleteModal{{ f.id }}">
-                Eliminar
-              </button>
-            </div>
-          </div>
-        
-        <!-- Modal -->
-        <div class="modal fade" id="confirmDeleteModal{{ f.id }}" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel{{ f.id }}" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="confirmDeleteModalLabel{{ f.id }}">Confirmar eliminación</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                ¿Estás seguro de que deseas eliminar esta nota?
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <!-- Formulario para eliminar la nota -->
-                <form method="POST" action="{% url 'eliminar-nota' f.id %}">
-                  {% csrf_token %}
-                  <button class="btn btn-danger" type="submit">Eliminar</button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-=======
                   </div>
->>>>>>> 9333192955e7d51e2796d4e8461b23e657998e92
         
         {% endfor %}
     </section>

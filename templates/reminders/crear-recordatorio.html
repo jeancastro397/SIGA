@@ -22,7 +22,18 @@ Crear Recordatorio
                     <div class="col-md-8">
                         <input type="text" id="id_name" name="name" class="form-control" placeholder="Ingrese el nombre del recordatorio" required>
                     </div>
+                </div>
 
+                <!-- Nota Asociada -->
+                <div class="mb-3 row">
+                    <label for="id_note" class="col-md-4 col-form-label">Nota Asociada:</label>
+                    <div class="col-md-8">
+                        <select id="id_note" name="note" class="form-control" required>
+                            {% for note in notes %}
+                                <option value="{{ note.id }}">{{ note.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
                 </div>
 
                 <!-- Fecha del Recordatorio -->
@@ -51,7 +62,4 @@ Crear Recordatorio
         </div>
     </section>
 </main>
-
-
-
 {% endblock content %}
