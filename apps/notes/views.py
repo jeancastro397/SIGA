@@ -93,3 +93,26 @@ def modificarNota(request, pk):
         "form": form
     }
     return render(request, "notes/modificar-notas.html", context)
+
+
+@login_required
+def eliminarNota(request, pk):
+    note = get_object_or_404(Note, pk=pk, user=request.user)
+
+    if request.method == 'POST':
+        if note.pk == pk:
+            note.delete()
+            success(
+                request,
+                "Nota eliminada con éxito.",
+                timer=5000,
+                button="Listo",
+            )
+            return redirect("listar-notas")
+        else:
+            warning(
+                request,
+                "No se pudo eliminar la nota",
+                timer=3000,
+                button="OK",
+            )
