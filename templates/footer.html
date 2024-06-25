@@ -1,0 +1,29 @@
+{% load static %}
+<footer class="fixed-bottom bg-dark text-primary">
+  <hr>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4">
+        <h3>Enlaces</h3>
+        <div>
+          <a href="{% url 'home' %}">Inicio</a>
+          <br>
+          <a href="{% url 'login' %}">Login</a>
+          <br>
+          <a href="{% url 'perfil' %}">Perfil</a>
+          <br>
+          <a href="{% url 'registrar' %}">Registro</a>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <h3>Contacto</h3>
+        <p>Correo electrónico: siga.educacion@gmail.com</p>
+        <p>Teléfono: 9-9435-7966</p>
+      </div>
+      <div class="col-lg-4">
+        <h3>Derechos de autor</h3>
+        <p>&copy; 2024 SIGA. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title%}
+Crear Nota
+{% endblock title%}
+
+{% block css %}
+{% endblock css %}
+
+{% block content %}
+<main class="container form-container" style="margin-bottom: 200px;">
+    <section class="row">
+        <div class="col-md-8 offset-md-2 mt-3">
+            <h2 class="text-center">CREAR NOTA</h2>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label">Título</label>
+                    {{form.title}}
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Descripción:</label>
+                    {{form.description}}
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Fecha de vencimiento:</label>
+                    {{form.due_date}}
+                </div>
+                <button type="submit" role="submit" class="btn btn-primary offset-md-4 col-md-4">Guardar</button>
+            </form>
+        </div>
+    </section>
+</main>
+{% endblock content %}

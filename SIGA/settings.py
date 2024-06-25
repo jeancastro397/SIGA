@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 from os.path import join
 
+from django.urls import reverse_lazy
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -42,6 +44,8 @@ INSTALLED_APPS = [
     # APPS
     'apps.user',
     'apps.notes',
+    'apps.reminders',
+    'sweetify',
 ]
 
 MIDDLEWARE = [
@@ -115,6 +119,7 @@ TIME_ZONE = 'America/Santiago'
 USE_I18N = True
 
 USE_TZ = True
+LOGOUT_REDIRECT_URL = 'login'
 
 
 # Static files (CSS, JavaScript, Images)
@@ -131,3 +136,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_DIRS = [
     join(BASE_DIR, 'assets')
 ]
+
+## Instalación de sweetify2
+SWEETIFY_SWEETALERT_LIBRARY = 'sweetalert2'

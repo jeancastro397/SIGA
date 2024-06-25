@@ -1,6 +1,7 @@
 from django.forms import (
     ModelForm,
     TextInput,
+    Textarea,
     DateInput
 )
 from .models import Note
@@ -19,11 +20,12 @@ class NoteForm(ModelForm):
                 "class":"form-control",
                 "placeholder":"Ingrese el título."
             }),
-            "description": TextInput(attrs={
+            "description": Textarea(attrs={
                 "class":"form-control",
                 "placeholder":"Escriba su contenido aquí..."
             }),
             "due_date": DateInput(attrs={
-                "class":"form-control"
+                "class":"form-control",
+                "type":"date"
             }),
         }

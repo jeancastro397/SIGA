@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Iniciar Sesión
+{% endblock title %}
+
+{% block content %}
+<main class="container">
+    <form method="POST" style="margin-top: 100px;">
+        {% csrf_token %}
+        <div class="mb-1 offset-md-4 col-md-4" style="display: flex; justify-content: center; align-items: center;">
+            <h1>{{ title }}</h1>
+        </div>
+        <!-- Campo nombre de usuario -->
+        <div class="mb-1 offset-md-4 col-md-4">
+            <label class="form-label m-2">{{loginForm.username.label}}</label>
+            {{loginForm.username}}
+        </div>
+        <!-- Campo contraseña -->
+        <div class="mb-3 offset-md-4 col-md-4">
+            <label class="form-label m-2">{{loginForm.password.label}}:</label>
+            {{loginForm.password}}
+        </div>
+        <button type="submit" role="submit" class="btn btn-primary offset-md-4 col-md-4">Iniciar</button>
+    </form>
+</main>
+{% endblock content %}
