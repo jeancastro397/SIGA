@@ -25,6 +25,7 @@ class NoteForm(ModelForm):
                 "placeholder":"Escriba su contenido aquí..."
             }),
             "due_date": DateInput(attrs={
-                "class":"form-control"
+                "class":"form-control",
+                "type":"date"
             }),
         }
