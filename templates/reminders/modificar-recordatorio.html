@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-Crear Recordatorio
+Modificar Recordatorio
 {% endblock title %}
 
 {% block css %}
@@ -15,24 +15,15 @@ Crear Recordatorio
             <h2>{{ title }}</h2>
             <form action="" method="POST">
                 {% csrf_token %}
-                
+
+                <!-- Campo oculto para el método PUT -->
+                <input type="hidden" name="_method" value="PUT">
+
                 <!-- Nombre del Recordatorio -->
                 <div class="mb-3 row">
                     <label for="id_name" class="col-md-4 col-form-label">Nombre del Recordatorio:</label>
                     <div class="col-md-8">
-                        <input type="text" id="id_name" name="name" class="form-control" placeholder="Ingrese el nombre del recordatorio" required>
-                    </div>
-                </div>
-
-                <!-- Nota Asociada -->
-                <div class="mb-3 row">
-                    <label for="id_note" class="col-md-4 col-form-label">Nota Asociada:</label>
-                    <div class="col-md-8">
-                        <select id="id_note" name="note" class="form-control" required>
-                            {% for note in notes %}
-                                <option value="{{ note.id }}">{{ note.title }}</option>
-                            {% endfor %}
-                        </select>
+                        <input type="text" id="id_name" name="name" class="form-control" value="{{ recordatorio.name }}" required>
                     </div>
                 </div>
 
@@ -40,7 +31,7 @@ Crear Recordatorio
                 <div class="mb-3 row">
                     <label for="id_date" class="col-md-4 col-form-label">Fecha del Recordatorio:</label>
                     <div class="col-md-8">
-                        <input type="date" id="id_date" name="date" class="form-control" required>
+                        <input type="date" id="id_date" name="date" class="form-control" value="{{ recordatorio.date|date:'Y-m-d' }}" required>
                     </div>
                 </div>
 
@@ -48,14 +39,14 @@ Crear Recordatorio
                 <div class="mb-3 row">
                     <label for="id_time" class="col-md-4 col-form-label">Hora del Recordatorio:</label>
                     <div class="col-md-8">
-                        <input type="time" id="id_time" name="time" class="form-control" required>
+                        <input type="time" id="id_time" name="time" class="form-control" value="{{ recordatorio.time|time:'H:i' }}" required>
                     </div>
                 </div>
 
-                <!-- Botón de Registro -->
+                <!-- Botón de Actualizar -->
                 <div class="mb-3 row">
                     <div class="offset-md-4 col-md-4">
-                        <button type="submit" class="btn btn-primary w-100">Registrar</button>
+                        <button type="submit" class="btn btn-primary w-100">Actualizar</button>
                     </div>
                 </div>
             </form>

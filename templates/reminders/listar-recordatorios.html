@@ -2,29 +2,48 @@
 {% load static %}
 
 {% block title %}
-Listar Recordatorios
+{{ title }}
 {% endblock title %}
 
 {% block css %}
 {% endblock css %}
 
 {% block content %}
-<main class="container">
+<main class="container mt-5">
     <section class="row">
-        <h2> {{title}} </h2>
-        {% for f in listReminders %}
-
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title">{{f.name}}</h5>
-              <h6 class="card-subtitle mb-2 text-body-secondary"> {{f.date}} </h6>
-              <p class="card-text"> {{f.time}} </p>
-
-              <button>Crear recordatorio</button>
-            </div>
-          </div>
-        
-        {% endfor %}
+        <div class="col-md-10 offset-md-1">
+            <h2>{{ title }}</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Creado el:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in listReminders %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ r.name }}</td>
+                        <td>{{ r.remind_at }}</td>
+                        <td>{{ r.created_ad }}</td>
+                        <td>
+                            <form action="{% url 'eliminar-recordatorio' r.id %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center">No hay recordatorios registrados.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </section>
 </main>
 {% endblock content %}

@@ -1,8 +1,8 @@
 from django.urls import path
-from .views import crear_recordatorio, listarRecordatorio
-
+from .views import crearRecordatorio, listarRecordatorio, eliminarRecordatorio
 
 urlpatterns = [
-    path('crear-recordatorio/', crear_recordatorio, name='crear-recordatorio'),
-    path('listar-recordatorio/', listarRecordatorio, name='listar-recordatorio'),
+    path('crear-recordatorio/', crearRecordatorio, name='crear-recordatorio'),
+    path('listar-recordatorios/', listarRecordatorio, name='listar-recordatorios'),
+    path('eliminar-recordatorio/<int:pk>', eliminarRecordatorio, name='eliminar-recordatorio'),
 ]
