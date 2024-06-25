@@ -146,4 +146,23 @@ def cerrar_sesion(request):
     # Eliminar otras cookies si es necesario (por ejemplo, si tienes cookies personalizadas)
 
     # Redirige a alguna página después de cerrar sesión
-    return render(request,"users/logout.html")
+    return render(request, "users/logout.html")
+
+
+@login_required
+def eliminar_cuenta_view(request):
+    if request.method == "POST":
+        user = request.user
+        logout(request)
+        if request.session.session_key:
+            request.session.delete(request.session.session_key)
+        user.delete()
+        success(
+            request,
+            "Cuenta eliminada",
+            text="Tu cuenta ha sido eliminada correctamente.",
+            timer=3000,
+            button="OK",
+        )
+        return redirect("home")
+    return redirect("perfil")
