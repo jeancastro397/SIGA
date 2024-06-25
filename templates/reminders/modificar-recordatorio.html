@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Modificar Recordatorio
+{% endblock title %}
+
+{% block css %}
+{% endblock css %}
+
+{% block content %}
+<main class="container mt-5">
+    <section class="row">
+        <div class="col-md-8 offset-md-2">
+            <h2>{{ title }}</h2>
+            <form action="" method="POST">
+                {% csrf_token %}
+
+                <!-- Campo oculto para el método PUT -->
+                <input type="hidden" name="_method" value="PUT">
+
+                <!-- Nombre del Recordatorio -->
+                <div class="mb-3 row">
+                    <label for="id_name" class="col-md-4 col-form-label">Nombre del Recordatorio:</label>
+                    <div class="col-md-8">
+                        <input type="text" id="id_name" name="name" class="form-control" value="{{ recordatorio.name }}" required>
+                    </div>
+                </div>
+
+                <!-- Fecha del Recordatorio -->
+                <div class="mb-3 row">
+                    <label for="id_date" class="col-md-4 col-form-label">Fecha del Recordatorio:</label>
+                    <div class="col-md-8">
+                        <input type="date" id="id_date" name="date" class="form-control" value="{{ recordatorio.date|date:'Y-m-d' }}" required>
+                    </div>
+                </div>
+
+                <!-- Hora del Recordatorio -->
+                <div class="mb-3 row">
+                    <label for="id_time" class="col-md-4 col-form-label">Hora del Recordatorio:</label>
+                    <div class="col-md-8">
+                        <input type="time" id="id_time" name="time" class="form-control" value="{{ recordatorio.time|time:'H:i' }}" required>
+                    </div>
+                </div>
+
+                <!-- Botón de Actualizar -->
+                <div class="mb-3 row">
+                    <div class="offset-md-4 col-md-4">
+                        <button type="submit" class="btn btn-primary w-100">Actualizar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
+{% endblock content %}

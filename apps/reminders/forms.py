@@ -46,3 +46,13 @@ class ReminderForm(ModelForm):
         if commit:
             reminder.save()
         return reminder
+    
+    # En reminders/forms.py
+
+from django import forms
+from .models import Recordatorio
+
+class RecordatorioForm(forms.ModelForm):
+    class Meta:
+        model = Recordatorio
+        fields = ['name', 'date', 'time']
