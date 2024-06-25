@@ -16,15 +16,22 @@
           <li class="nav-item me-3">
             <a class="nav-link" href="#">Nosotros</a>
           </li>
+
+          {% if request.user.is_authenticated %}
           <li class="nav-item me-3">
-            <a class="nav-link" href="#">Ingresar</a>
+            <a class="nav-link" href="{% url 'perfil' %}">Perfil</a>
           </li>
           <li class="nav-item me-3">
-            <a class="nav-link" href="#">Registro</a>
+            <a class="nav-link" href="{% url 'logout' %}">Cerrar Sesion</a>
+          </li>
+          {% else %}
+          <li class="nav-item me-3">
+            <a class="nav-link" href="{% url 'login' %}">Ingresar</a>
           </li>
           <li class="nav-item me-3">
-            <a class="nav-link" href="#">Perfil</a>
+            <a class="nav-link" href="{% url 'registrar' %}">Registro</a>
           </li>
+          {% endif %}
         </ul>
         <form class="d-flex ms-auto" role="search">
           <input class="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search">
