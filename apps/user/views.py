@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, update_session_auth_hash
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, RegistroForm, PerfilForm, PasswordUpdateForm
 from sweetify import success, warning
@@ -75,7 +75,6 @@ def perfil(request):
     if request.method == "POST":
         user_form = PerfilForm(request.POST, instance=request.user)
         password_form = PasswordUpdateForm(user=request.user, data=request.POST)
-
         if user_form.is_valid() and password_form.is_valid():
             user_form.save()
             password_form.save()
@@ -134,3 +133,17 @@ def perfil(request):
             "password_form": password_form,
         },
     )
+
+
+@login_required
+def cerrar_sesion(request):
+    logout(request)  # Cierra la sesión del usuario
+
+    # Eliminar la cookie de sesión
+    if request.session.session_key:
+        request.session.delete(request.session.session_key)
+
+    # Eliminar otras cookies si es necesario (por ejemplo, si tienes cookies personalizadas)
+
+    # Redirige a alguna página después de cerrar sesión
+    return redirect("login")

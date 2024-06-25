@@ -9,28 +9,49 @@ Crear Recordatorio
 {% endblock css %}
 
 {% block content %}
-<main class="container">
+<main class="container mt-5">
     <section class="row">
         <div class="col-md-8 offset-md-2">
-            <h2>{{title}}</h2>
+            <h2>{{ title }}</h2>
             <form action="" method="POST">
                 {% csrf_token %}
-                <div class="mb-3 offset-md-4 col-md-4">
-                    <label class="form-label m-2">{{reminderForm.name.label}}:</label>
-                    {{reminderForm.name}}
-                </div>
-                <div class="mb-1 offset-md-4 col-md-4">
-                    <label class="form-label m-2">{{reminderForm.date.label}}:</label>
-                    {{reminderForm.date}}
-                </div>
-                <div class="mb-3 offset-md-4 col-md-4">
-                    <label class="form-label m-2">{{reminderForm.time.label}}:</label>
-                    {{reminderForm.time}}
+                
+                <!-- Nombre del Recordatorio -->
+                <div class="mb-3 row">
+                    <label for="id_name" class="col-md-4 col-form-label">Nombre del Recordatorio:</label>
+                    <div class="col-md-8">
+                        <input type="text" id="id_name" name="name" class="form-control" placeholder="Ingrese el nombre del recordatorio" required>
+                    </div>
+
                 </div>
 
-                <button type="submit" role="submit" class="btn btn-primary offset-md-4 col-md-4">Registrar</button>
+                <!-- Fecha del Recordatorio -->
+                <div class="mb-3 row">
+                    <label for="id_date" class="col-md-4 col-form-label">Fecha del Recordatorio:</label>
+                    <div class="col-md-8">
+                        <input type="date" id="id_date" name="date" class="form-control" required>
+                    </div>
+                </div>
+
+                <!-- Hora del Recordatorio -->
+                <div class="mb-3 row">
+                    <label for="id_time" class="col-md-4 col-form-label">Hora del Recordatorio:</label>
+                    <div class="col-md-8">
+                        <input type="time" id="id_time" name="time" class="form-control" required>
+                    </div>
+                </div>
+
+                <!-- Botón de Registro -->
+                <div class="mb-3 row">
+                    <div class="offset-md-4 col-md-4">
+                        <button type="submit" class="btn btn-primary w-100">Registrar</button>
+                    </div>
+                </div>
             </form>
         </div>
     </section>
 </main>
+
+
+
 {% endblock content %}
