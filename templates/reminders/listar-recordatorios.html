@@ -29,6 +29,12 @@
                         <td>{{ r.name }}</td>
                         <td>{{ r.remind_at }}</td>
                         <td>{{ r.created_ad }}</td>
+                        <td>
+                            <form action="{% url 'eliminar-recordatorio' r.id %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                            </form>
+                        </td>
                     </tr>
                     {% empty %}
                     <tr>
