@@ -57,3 +57,26 @@ def listarRecordatorio(request):
             "listReminders": Reminder.objects.all()
         }
         return render(request, "reminders/listar-recordatorios.html", context)
+
+
+@login_required
+def eliminarRecordatorio(request, pk):
+    recordatorio = get_object_or_404(Reminder, pk=pk, user=request.user)
+
+    if request.method == 'POST':
+        if recordatorio.pk == pk:
+            recordatorio.delete()
+            success(
+                request,
+                "Recordatorio eliminado con éxito.",
+                timer=5000,
+                button="Listo",
+            )
+            return redirect("listar-recordatorios")
+        else:
+            warning(
+                request,
+                "No se pudo eliminar el recordatorio",
+                timer=3000,
+                button="OK",
+            )
