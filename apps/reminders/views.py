@@ -1,6 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Recordatorio
 from .forms import RecordatorioForm
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from .forms import ReminderForm
+from .models import Reminder
 
 
 
@@ -51,3 +55,12 @@ def modificar_recordatorio(request, pk):
         'recordatorio': recordatorio,
     }
     return render(request, 'reminders/modificar-recordatorio.html', context)
+
+@login_required
+def listarRecordatorio(request):
+    if request.method == 'GET':
+        context = {
+            "title": "Lista de notas",
+            "listReminders": Reminder.objects.all()
+        }
+        return render(request, "reminders/listar-recordatorios.html", context)

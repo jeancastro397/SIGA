@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Listar Recordatorios
+{% endblock title %}
+
+{% block css %}
+{% endblock css %}
+
+{% block content %}
+<main class="container">
+    <section class="row">
+        <h2> {{title}} </h2>
+        {% for f in listReminders %}
+
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">{{f.name}}</h5>
+              <h6 class="card-subtitle mb-2 text-body-secondary"> {{f.date}} </h6>
+              <p class="card-text"> {{f.time}} </p>
+
+              <button>Crear recordatorio</button>
+            </div>
+          </div>
+        
+        {% endfor %}
+    </section>
+</main>
+{% endblock content %}
