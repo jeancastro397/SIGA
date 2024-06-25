@@ -146,4 +146,4 @@ def cerrar_sesion(request):
     # Eliminar otras cookies si es necesario (por ejemplo, si tienes cookies personalizadas)
 
     # Redirige a alguna página después de cerrar sesión
-    return redirect("login")
+    return render(request,"users/logout.html")
