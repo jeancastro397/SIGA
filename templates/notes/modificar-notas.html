@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title%}
-Crear Nota
+Editar Nota
 {% endblock title%}
 
 {% block css %}
@@ -12,7 +12,7 @@ Crear Nota
 <main class="container form-container">
     <section class="row">
         <div class="col-md-8 offset-md-2">
-            <h2>Crear Nota</h2>
+            <h2>Editar Nota</h2>
             <form action="" method="POST">
                 {% csrf_token %}
                 <div class="mb-1 offset-md-4 col-md-4">
@@ -27,7 +27,7 @@ Crear Nota
                     <label class="form-label m-2">{{form.due_date.label}}:</label>
                     {{form.due_date}}
                 </div>
-                <button type="submit" role="submit" class="btn btn-primary offset-md-4 col-md-4">Guardar</button>
+                <button type="submit" role="submit" class="btn btn-primary offset-md-4 col-md-4">Guardar Cambios</button>
             </form>
         </div>
     </section>
